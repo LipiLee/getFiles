@@ -15,12 +15,13 @@ class MyHTMLParser(HTMLParser):
 					href = attr[1]
 	def handle_data(self, data):
 		global href
-		if(string.find(data, filename) != -1):
+		partialname = data.strip()
+		if(string.find(partialname, filename) != -1):
 			if(href != ''):
 				print href
-				print data
+				print partialname
 				zipfile = urllib2.urlopen(href)
-				output = open(data, 'wb')
+				output = open(partialname, 'wb')
 				output.write(zipfile.read())
 				output.close()
 				href = ''
